@@ -11,4 +11,4 @@ git remote add upstream https://github.com/otter-academy/template.git;
 git fetch upstream master;
 git checkout -b master upstream/master;
 
-source ./yarn create;
+source ./yarn run create;
