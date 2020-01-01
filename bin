@@ -5,10 +5,10 @@ name="${1:-pup}";
 
 mkdir "${name}";
 cd "${name}";
+
 git init .;
 git remote add upstream https://github.com/otter-academy/template.git;
 git fetch upstream master;
 git checkout -b master upstream/master;
 
-pushd "${name}";
 source ./yarn create;
