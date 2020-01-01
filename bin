@@ -17,6 +17,9 @@ git branch --unset-upstream;
 
 git tag template;
 
+git config user.name || git config user.name "user";
+git config user.email || git config user.email "user@localhost";
+
 git reset "$(git commit-tree HEAD^{tree} -m "${message}")";
 
 git tag initial;
