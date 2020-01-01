@@ -1,7 +1,9 @@
 #!/bin/bash
 set -euo pipefail;
 
-name="${1:-untitled-project}";
+export PORT="$(( 3000 + ("$(date +1%s)" + "$(date +1%N)") % 7000 ))";
+
+name="${1:-"untitled-project-${PORT}"}";
 
 git clone https://github.com/otter-academy/template.git "${name}" --origin template --depth 1 --single-branch --no-tags;
 
@@ -12,22 +14,19 @@ message="initial commit
 using otter-academy/template@$(git rev-parse HEAD)
                     $(git show -s --format=%s)"
 
-
 git branch --unset-upstream;
 
 git tag template;
 
-git config user.name || git config user.name "user";
-git config user.email || git config user.email "user@localhost";
+git config user.name > /dev/null || git config user.name "user";
+git config user.email > /dev/null || git config user.email "user@localhost";
 
 git reset "$(git commit-tree HEAD^{tree} -m "${message}")";
 
 git tag initial;
 
-git --no-pager log --graph --decorate --format=raw --all;
+git --no-pager log --graph --decorate --format=raw HEAD template/master initial;
 echo;
 pwd;
 echo;
-source ./yarn run create;
-echo;
-git --no-pager log --graph --decorate --format=raw --all;
+exec ./yarn run create;
