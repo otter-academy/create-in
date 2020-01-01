@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail;
+ROOT="$(dirname "${BASH_SOURCE:-}")";
+
+NAME="${1:-pup}";
+
+git clone https://github.com/otter-academy/template.git "${NAME}";
+
+pushd "${NAME}";
+source ./yarn install;
+source ./yarn build;
