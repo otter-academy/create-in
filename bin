@@ -1,18 +1,29 @@
 #!/bin/bash
 set -euo pipefail;
 
-name="${1:-otter-pup}";
+name="${1:-untitled-project}";
 
-git clone --origin template https://github.com/otter-academy/template.git --depth 1 --single-branch "${name}";
+git clone https://github.com/otter-academy/template.git "${name}" --origin template --depth 1 --single-branch --no-tags;
 
-cd "${name}";
+pushd "${name}";
 
 message="initial commit
 
-using otter-academy/template@$(git rev-parse --short=8 HEAD) ($(git show -s --format=%s))"
+using otter-academy/template@$(git rev-parse --HEAD)
+                             ($(git show -s --format=%s))"
 
-git branch --unset-upstream master;
+
+git branch --unset-upstream;
+
+git tag template;
 
 git reset "$(git commit-tree HEAD^{tree} -m "${message}")";
 
+git tag initial;
+
+println
+git --no-pager log --graph --decorate --format=raw --all;
+echo;
 source ./yarn run create;
+echo;
+git --no-pager log --graph --decorate --format=raw --all;
