@@ -21,8 +21,9 @@ git reset "$(git commit-tree HEAD^{tree} -m "${message}")";
 
 git tag initial;
 
-println
 git --no-pager log --graph --decorate --format=raw --all;
+echo;
+pwd;
 echo;
 source ./yarn run create;
 echo;
