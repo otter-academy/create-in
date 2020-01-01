@@ -9,8 +9,8 @@ pushd "${name}";
 
 message="initial commit
 
-using otter-academy/template@$(git rev-parse --HEAD)
-                             ($(git show -s --format=%s))"
+using otter-academy/template@$(git rev-parse HEAD)
+                    $(git show -s --format=%s)"
 
 
 git branch --unset-upstream;
